@@ -10,13 +10,16 @@ Home Assistant energy management: smart EV charging driven by solar surplus, ene
    `GH_TOKEN=$(gh auth token --user kristofdegrave-bot) gh pr create ...`
    Plain `gh` stays `kristofdegrave` and is the reviewer side (reviews, labels, merge).
 4. PR body follows the `pr` skill and ends with `Closes #<n>`.
-5. Before marking ready, run `code-review` against `main`. The user merges.
+5. Before marking ready, run the mattpocock `code-review` and `ha-review` against `main`. Post the verified findings as one PR review from `kristofdegrave-bot`, event `COMMENT`, one inline comment per file and line:
+   `GH_TOKEN=$(gh auth token --user kristofdegrave-bot) gh api repos/kristofdegrave/ha-ems/pulls/<n>/reviews --input review.json`
+   with `review.json` holding `{"event": "COMMENT", "body": "<summary>", "comments": [{"path": "...", "line": 12, "side": "RIGHT", "body": "..."}]}`. Approve, request changes and merge stay with the user.
 
 ## Standards
 
 `code-review` checks changes against this section.
 
-- Home Assistant config follows the `home-assistant-best-practices` skill: reference entities by `entity_id`, prefer native triggers, conditions and helpers over Jinja templates.
+- ha-ems is a HACS custom integration in Python. Integration code and tests follow the `ha-integration-knowledge` skill, and the quality scale rules are checked with `ha-quality-scale-verify`.
+- Home Assistant YAML config (examples, test configuration) follows the `home-assistant-best-practices` skill: reference entities by `entity_id`, prefer native triggers, conditions and helpers over Jinja templates.
 - Every new domain term lands in GLOSSARY.md in the same PR that introduces it.
 - A choice between real alternatives (architecture, integration, control strategy) gets an ADR in `docs/adr/`, numbered `NNNN-<slug>.md`.
 - Components follow the IDesign layers and call rules ([ADR 0001](docs/adr/0001-idesign-method.md)).
@@ -32,6 +35,12 @@ The mattpocock plugin is enabled in `.claude/settings.json`. Reach for:
 - `tdd`: building features or fixes test-first.
 - `diagnosing-bugs`: something broken, throwing or slow.
 - `code-review` and `pr`: before opening and when describing a PR.
+
+Project skills in `.claude/skills/`, adapted from home-assistant/core:
+
+- `ha-integration-knowledge`: writing or reviewing anything under `custom_components/` or `tests/`.
+- `ha-quality-scale-verify`: checking a quality scale rule or tier.
+- `ha-review`: the Home Assistant half of the pre-PR review.
 
 ## Agent skills
 
