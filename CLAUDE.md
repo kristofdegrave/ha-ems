@@ -8,15 +8,15 @@ Home Assistant energy management: smart EV charging driven by solar surplus, ene
 2. Branch `<issue-number>-<slug>` off `main`.
 3. Commits, pushes and the PR run as `kristofdegrave-bot`. The repo-local git config carries the bot identity; open the PR with the bot token scoped to that one call:
    `GH_TOKEN=$(gh auth token --user kristofdegrave-bot) gh pr create ...`
-   Plain `gh` stays `kristofdegrave` and is the reviewer side (reviews, labels, merge).
+   Plain `gh` stays `kristofdegrave` and is the user's side (approve, labels, merge).
 4. PR body follows the `pr` skill and ends with `Closes #<n>`.
 5. Before marking ready, run the mattpocock `code-review` and `ha-review` against `main`. Post the verified findings as one PR review from `kristofdegrave-bot`, event `COMMENT`, one inline comment per file and line:
    `GH_TOKEN=$(gh auth token --user kristofdegrave-bot) gh api repos/kristofdegrave/ha-ems/pulls/<n>/reviews --input review.json`
-   with `review.json` holding `{"event": "COMMENT", "body": "<summary>", "comments": [{"path": "...", "line": 12, "side": "RIGHT", "body": "..."}]}`. Approve, request changes and merge stay with the user.
+   with `review.json` in the scratchpad holding `{"event": "COMMENT", "body": "<summary>", "comments": [{"path": "...", "line": 12, "side": "RIGHT", "body": "..."}]}`. Inline comments may only target lines inside the diff hunks; one outside returns 422 for the whole review, so those findings go in `body`. Approve, request changes and merge stay with the user.
 
 ## Standards
 
-`code-review` checks changes against this section.
+Both pre-PR reviews check changes against this section.
 
 - ha-ems is a HACS custom integration in Python. Integration code and tests follow the `ha-integration-knowledge` skill, and the quality scale rules are checked with `ha-quality-scale-verify`.
 - Home Assistant YAML config (examples, test configuration) follows the `home-assistant-best-practices` skill: reference entities by `entity_id`, prefer native triggers, conditions and helpers over Jinja templates.

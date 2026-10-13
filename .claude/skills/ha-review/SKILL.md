@@ -5,10 +5,10 @@ description: Reviews ha-ems code changes against Home Assistant integration prac
 
 # Review Code Changes
 
-Adapted from [home-assistant/core](https://github.com/home-assistant/core/tree/4eb235287822d33574cb138104a2754b8f3ad2e5/.claude/skills/ha-review) (Apache-2.0) for a custom integration distributed through HACS.
+Adapted from [home-assistant/core](https://github.com/home-assistant/core/tree/4eb235287822d33574cb138104a2754b8f3ad2e5/.claude/skills/ha-review) (Apache-2.0, see [LICENSE](../LICENSE-home-assistant-core.md)) for a custom integration distributed through HACS.
 
 ## Scope:
-- Unless instructed otherwise, review the full changes (the ones from the branch plus uncommitted ones) against `main`. Resolve the base to `origin/main`, else local `main`, and review `git diff "$(git merge-base "$BASE_REF" HEAD)"`.
+- Unless instructed otherwise, review the full changes (the ones from the branch plus uncommitted ones) against `main`. Review `git diff "$(git merge-base origin/main HEAD)"`.
 - Judge integration code against the `ha-integration-knowledge` skill.
 
 ## Analyze the code changes for:
@@ -32,7 +32,7 @@ Adapted from [home-assistant/core](https://github.com/home-assistant/core/tree/4
 - Just review. DO NOT make any changes.
 - Be constructive and specific in your comments.
 - Suggest improvements where appropriate.
-- No need to run tests or linters, just review the code changes.
+- No need to run tests or linters yourself; the quality scale subagent runs its own checks.
 - No need to highlight things that are already good.
 
 ## Output format:
