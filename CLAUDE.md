@@ -19,6 +19,9 @@ Home Assistant energy management: smart EV charging driven by solar surplus, ene
 - Home Assistant config follows the `home-assistant-best-practices` skill: reference entities by `entity_id`, prefer native triggers, conditions and helpers over Jinja templates.
 - Every new domain term lands in GLOSSARY.md in the same PR that introduces it.
 - A choice between real alternatives (architecture, integration, control strategy) gets an ADR in `docs/adr/`, numbered `NNNN-<slug>.md`.
+- Components follow the IDesign layers and call rules ([ADR 0001](docs/adr/0001-idesign-method.md)).
+- ha-ems sends no notifications and holds no device code. It exposes facts, owns inputs and writes setpoints with read-back ([ADR 0002](docs/adr/0002-system-boundary.md)).
+- The process rules in [ADR 0001](docs/adr/0001-idesign-method.md#process) apply: fixed document set, findings stay code issues, done = seen running, lean writing.
 
 ## Skills
 
